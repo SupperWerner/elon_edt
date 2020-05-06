@@ -1,6 +1,7 @@
 package com.zsy.edu.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zsy.commonutils.ResModel;
 import com.zsy.edu.entity.Course;
@@ -43,7 +44,19 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
      **/
     @Override
     public void myFindCoursePage(Page<Course> page, CourseQuery courseQuery) {
-        if (StringUtils.isNotBlank(courseQuery.getSubjectId()))
+        QueryWrapper<Course> wrapper = new QueryWrapper<>();
+
+        /* 组装查询信息*/
+        if (StringUtils.isNotBlank(courseQuery.getSubjectId())){
+            wrapper.eq("subject_id",courseQuery.getSubjectId());
+        }else if (StringUtils.isNotBlank(courseQuery.getSubjectParentId())){
+            wrapper.eq("subject_parent_id",courseQuery.getSubjectParentId());
+        }else if (StringUtils.isNotBlank(courseQuery.getTeacherId())){
+            wrapper.eq("teacher_id",courseQuery.getTeacherId());
+        }else if (StringUtils.isNotBlank(courseQuery.getTitle())){
+            wrapper.like("title",courseQuery.getTitle());
+        }
+        this.baseMapper.selectPage(page, wrapper);
     }
 
     /**
