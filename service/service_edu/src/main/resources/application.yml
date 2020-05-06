@@ -1,0 +1,27 @@
+server:
+  port: 8001
+spring:
+  application:
+    name: service_edu
+  profiles:
+    active: dev
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://rm-8vb8moz10j8l608c7ho.mysql.zhangbei.rds.aliyuncs.com/elon_edu?serverTimezone=GMT%2B8
+    username: mac_mysql
+    password: mysql2020
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+#配置xml文件的位置
+mybatis-plus:
+  mapper-locations: classpath:com/zsy/edu/mapper/xml/*.xml
+
+
+#mybatis日志 mybatis-plus.mapper-locations=classpath:com/guli/edu/mapper/xml/*.xml
+#mybatis-plus:
+#  configuration:
+#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+#logging:
+#  level: debug
+

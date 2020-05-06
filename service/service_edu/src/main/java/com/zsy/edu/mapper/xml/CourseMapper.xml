@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zsy.edu.mapper.CourseMapper">
+
+    <select id="myGetCoursePublishInfoById" resultType="com.zsy.edu.entity.vo.CoursePublishVO">
+        SELECT
+            c.title,
+            c.cover,
+            c.lesson_num lessonNum,
+            CONVERT(c.price, DECIMAL(8,2)) AS price,
+            s1.title subjectLevelOne,
+            s2.title subjectLevelTwo,
+            t.`name` teacherName
+        from
+            edu_course c
+            JOIN edu_teacher t ON  c.teacher_id =  t.id
+            JOIN edu_subject s1 ON c.subject_parent_id = s1.id
+            JOIN edu_subject s2 ON c.subject_id = s2.id
+        WHERE
+            c.id = #{id}
+</select>
+
+</mapper>

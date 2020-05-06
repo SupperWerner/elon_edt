@@ -1,0 +1,17 @@
+server:
+  port: 8002
+spring:
+  application:
+    name: service_edu
+  profiles:
+    active: dev
+
+# endpoint 地域节点名
+# accessKeyId id
+# accessKdySecret 秘钥
+aliyun:
+  oss:
+    endpoint: oss-cn-beijing.aliyuncs.com
+    accessKeyId: LTAI4FjU1B1fKiqWHKJPc19q
+    accessKeySecret: OxUQSJNNS5QMX4Bl7jwXrMJdU0WIOt
+    bucketName: elon-edu
