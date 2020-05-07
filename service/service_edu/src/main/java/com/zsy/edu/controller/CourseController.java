@@ -39,7 +39,7 @@ public class CourseController {
     public ResModel findCoursePage(
             @ApiParam("当前页码")@PathVariable(required = true) Integer curPage,
             @ApiParam("显示条数")@PathVariable(required = true) Integer size,
-            @ApiParam("查询条件")@PathVariable CourseQuery courseQuery){
+            @ApiParam("查询条件")@RequestBody CourseQuery courseQuery){
         Page<Course> page = new Page<>(curPage,size);
         courseService.myFindCoursePage(page,courseQuery);
         return ResModel.success().data("page",page);
@@ -78,6 +78,16 @@ public class CourseController {
         if (flag)
             return ResModel.success();
         return ResModel.error();
+    }
+
+    @DeleteMapping("{id}")
+    @ApiOperation("删除课程信息")
+    public ResModel deleteCourseById(@ApiParam(value = "课程id")String id){
+        /*
+            删除与该课程相关的所有的数据
+         */
+        courseService.myDeleteCourse(id);
+        return ResModel.success();
     }
 
 }

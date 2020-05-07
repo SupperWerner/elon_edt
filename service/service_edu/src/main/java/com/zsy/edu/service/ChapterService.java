@@ -17,4 +17,6 @@ public interface ChapterService extends IService<Chapter> {
     ResModel myGetChapterAndVideo(String id);
 
     boolean myRemoveById(String id);
+
+    boolean myRemoveByCourseId(String id);
 }

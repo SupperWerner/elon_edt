@@ -78,13 +78,40 @@ public class ChapterServiceImpl extends ServiceImpl<ChapterMapper, Chapter> impl
         return cvVOs;
     }
 
-
+    /**
+     * @Author zsy
+     * @Description 根据删除视频信息与课程信息
+     * @Date 1:26 PM 2020/5/7
+     * @Param [id] chapterId 章节id
+     * @return boolean
+     **/
     @Override
     public boolean myRemoveById(String id) {
-        int rmChapter = this.baseMapper.deleteById(id);
         QueryWrapper<Video> wrapper = new QueryWrapper<>();
         wrapper.eq("chapter_id",id);
         boolean rmVideo = videoService.remove(wrapper);
+        int rmChapter = this.baseMapper.deleteById(id);
         return rmChapter>0&&rmVideo;
+    }
+
+    /**
+     * @Author zsy
+     * @Description 根据courseId删除课程 章节与视频信息
+     * @Date 3:08 PM 2020/5/7
+     * @Param [id]
+     * @return boolean
+     **/
+    @Override
+    public boolean myRemoveByCourseId(String id) {
+        /* 组装video删除条件 并删除*/
+        QueryWrapper<Video> videoWrapper = new QueryWrapper<>();
+        videoWrapper.eq("course_id",id);
+        boolean removeVideo = videoService.remove(videoWrapper);
+
+        /* 组装chapter删除条件 并删除*/
+        QueryWrapper<Chapter> chapterWrapper = new QueryWrapper<>();
+        chapterWrapper.eq("course_id",id);
+        int deleteChapter = this.baseMapper.delete(chapterWrapper);
+        return removeVideo && deleteChapter>0;
     }
 }

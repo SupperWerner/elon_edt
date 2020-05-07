@@ -28,4 +28,6 @@ public interface CourseService extends IService<Course> {
     boolean publishCourseById(String id);
 
     void myFindCoursePage(Page<Course> page, CourseQuery courseQuery);
+
+    boolean myDeleteCourse(String id);
 }

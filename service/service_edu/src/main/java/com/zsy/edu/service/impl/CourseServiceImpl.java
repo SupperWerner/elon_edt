@@ -10,6 +10,7 @@ import com.zsy.edu.entity.query.CourseQuery;
 import com.zsy.edu.entity.vo.CoursePublishVO;
 import com.zsy.edu.entity.vo.CourseVO;
 import com.zsy.edu.mapper.CourseMapper;
+import com.zsy.edu.service.ChapterService;
 import com.zsy.edu.service.CourseDescriptionService;
 import com.zsy.edu.service.CourseService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -33,6 +34,8 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
 
     @Autowired
     private CourseDescriptionService courseDescriptionService;
+    @Autowired
+    private ChapterService chapterService;
 
 
     /**
@@ -157,5 +160,20 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
         course.setStatus(Course.COURSE_NORMAL);
         Integer count = baseMapper.updateById(course);
         return null != count && count > 0;
+    }
+
+    /**
+     * @Author zsy
+     * @Description 删除课程信息相关的所有信息
+     * @Date 3:03 PM 2020/5/7
+     * @Param [id]
+     * @return boolean
+     **/
+    @Override
+    public boolean myDeleteCourse(String id) {
+        boolean flagChapter = chapterService.myRemoveByCourseId(id); // 删除课程章节与课时视频信息
+        boolean flagDescription = courseDescriptionService.removeById(id); // 删除课程描述信息
+        int i = baseMapper.deleteById(id); // 删除基本信息
+        return flagChapter&&flagDescription&&i>0;
     }
 }
