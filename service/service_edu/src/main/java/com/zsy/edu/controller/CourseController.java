@@ -82,12 +82,14 @@ public class CourseController {
 
     @DeleteMapping("{id}")
     @ApiOperation("删除课程信息")
-    public ResModel deleteCourseById(@ApiParam(value = "课程id")String id){
+    public ResModel deleteCourseById(@ApiParam(value = "课程id")@PathVariable String id){
         /*
             删除与该课程相关的所有的数据
          */
-        courseService.myDeleteCourse(id);
-        return ResModel.success();
+        boolean b = courseService.myDeleteCourse(id);
+        if (b)
+            return ResModel.success();
+        return ResModel.error();
     }
 
 }

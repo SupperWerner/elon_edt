@@ -1,8 +1,8 @@
 server:
-  port: 8002
+  port: 8003
 spring:
   application:
-    name: service_oss
+    name: service_vod
   profiles:
     active: dev
 
@@ -10,8 +10,6 @@ spring:
 # accessKeyId id
 # accessKdySecret 秘钥
 aliyun:
-  oss:
-    endpoint: oss-cn-beijing.aliyuncs.com
+  vod:
     accessKeyId: LTAI4FjU1B1fKiqWHKJPc19q
     accessKeySecret: OxUQSJNNS5QMX4Bl7jwXrMJdU0WIOt
-    bucketName: elon-edu
