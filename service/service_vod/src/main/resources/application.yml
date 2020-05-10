@@ -5,7 +5,10 @@ spring:
     name: service_vod
   profiles:
     active: dev
-
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 100MB
 # endpoint 地域节点名
 # accessKeyId id
 # accessKdySecret 秘钥

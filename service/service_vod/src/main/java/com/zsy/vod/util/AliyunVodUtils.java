@@ -8,7 +8,10 @@ import com.aliyuncs.profile.DefaultProfile;
 import com.aliyuncs.DefaultAcsClient;
 import com.aliyuncs.exceptions.ClientException;
 import com.aliyuncs.vod.model.v20170321.*;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
 import java.io.InputStream;
 import java.util.List;
@@ -20,23 +23,35 @@ import java.util.List;
  * @Date 2020/5/8 8:15 PM
  * @Version 1.0
  */
-public class AliyunVodUtils {
-    @Value("${aliyun.oss.accessKeyId}")
-    private static String keyId;
+@Slf4j
+@Component
+public class AliyunVodUtils implements InitializingBean {
+    @Value("${aliyun.vod.accessKeyId}")
+    private String keyId;
 
-    @Value("${aliyun.oss.accessKeySecret}")
-    private static String keySecret;
+    @Value("${aliyun.vod.accessKeySecret}")
+    private String keySecret;
 
+
+    public static String KEY_ID;
+    public static String KEY_SECRET;
+
+
+    @Override
+    public void afterPropertiesSet() throws Exception {
+        KEY_ID = keyId;
+        KEY_SECRET = keySecret;
+    }
     /**
      * @Author zsy
      * @Description 初始化Vod
      * @Date 8:16 PM 2020/5/8
-     * @Param [accessKeyId, accessKeySecret]
+     * @Param [accessKEY_ID, accessKEY_SECRET]
      * @return com.aliyuncs.DefaultAcsClient
      **/
     public static DefaultAcsClient initVodClient() throws ClientException {
         String regionId = "cn-shanghai";  // 点播服务接入区域
-        DefaultProfile profile = DefaultProfile.getProfile(regionId, keyId, keySecret);
+        DefaultProfile profile = DefaultProfile.getProfile(regionId, KEY_ID, KEY_SECRET);
         DefaultAcsClient client = new DefaultAcsClient(profile);
         return client;
     }
@@ -119,7 +134,7 @@ public class AliyunVodUtils {
         //文件名必须包含扩展名
         fileName = "E:/共享/资源/课程视频/3 - How Does Project Submission Work.mp4";
         //本地文件上传
-        UploadVideoRequest request = new UploadVideoRequest(keyId, keySecret, title, fileName);
+        UploadVideoRequest request = new UploadVideoRequest(KEY_ID, KEY_SECRET, title, fileName);
         /* 可指定分片上传时每个分片的大小，默认为1M字节 */
         request.setPartSize(1 * 1024 * 1024L);
         /* 可指定分片上传时的并发线程数，默认为1，(注：该配置会占用服务器CPU资源，需根据服务器情况指定）*/
@@ -132,7 +147,7 @@ public class AliyunVodUtils {
     }
 
     public static UploadStreamResponse  uploadVideoByStream( String title, String fileName, InputStream inputStream) {
-        UploadStreamRequest request = new UploadStreamRequest(keyId, keySecret, title, fileName, inputStream);
+        UploadStreamRequest request = new UploadStreamRequest(KEY_ID, KEY_SECRET, title, fileName, inputStream);
         /* 是否使用默认水印(可选)，指定模板组ID时，根据模板组配置确定是否使用默认水印*/
         //request.setShowWaterMark(true);
         /* 设置上传完成后的回调URL(可选)，建议通过点播控制台配置消息监听事件，参见文档 https://help.aliyun.com/document_detail/57029.html */
@@ -175,5 +190,6 @@ public class AliyunVodUtils {
 //            System.out.print("ErrorMessage=" + response.getMessage() + "\n");
 //        }
     }
+
 
 }
