@@ -3,11 +3,13 @@ package com.zsy.edu.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.zsy.commonutils.ResModel;
+import com.zsy.edu.client.VodClient;
 import com.zsy.edu.entity.Video;
 import com.zsy.edu.service.VideoService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,6 +29,8 @@ public class VideoController {
 
     @Autowired
     private VideoService videoService;
+    @Autowired
+    private VodClient vodClient;
 
     @GetMapping("getVideo/{id}")
     @ApiOperation("获取指定id的小节信息")
@@ -57,9 +61,17 @@ public class VideoController {
     @DeleteMapping("{id}")
     @ApiOperation("根据id删除小节信息")
     public ResModel deleteVideo(@ApiParam("小节id")@PathVariable String id){
+        Video vodeo = videoService.getById(id);
+        String videoSourceId = vodeo.getVideoSourceId();
         boolean flag = videoService.removeById(id);
+        // 删除视频
+        if (StringUtils.isNotBlank(videoSourceId)){
+            ResModel resModel = vodClient.removeVideo(videoSourceId);
+            flag = resModel.isSuccess();
+        }
         if (flag)
             return ResModel.success();
+
         return ResModel.error();
     }
 

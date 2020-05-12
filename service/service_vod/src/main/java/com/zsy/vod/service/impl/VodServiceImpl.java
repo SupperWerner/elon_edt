@@ -5,12 +5,14 @@ import com.zsy.commonutils.ResModel;
 import com.zsy.servicebase.exceptionHandler.ElonException;
 import com.zsy.vod.service.VodService;
 import com.zsy.vod.util.AliyunVodUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 
 /**
  * @ClassName VodServiceImpl
@@ -20,6 +22,7 @@ import java.io.InputStream;
  * @Version 1.0
  */
 @Service
+@Slf4j
 public class VodServiceImpl implements VodService{
     /**
      * @Author zsy
@@ -68,6 +71,28 @@ public class VodServiceImpl implements VodService{
         } catch (Exception e) {
             throw new ElonException(20001,"删除失败!");
         }
+        return ResModel.success();
+    }
+
+
+    @Override
+    public ResModel myDeleteByVodIdList(List<String> vodIds) {
+        if (vodIds!=null&&vodIds.size() > 0){
+            StringBuilder vodIdSB = new StringBuilder();
+            vodIds.forEach(vodId -> {
+                vodIdSB.append(vodId).append(",");
+            });
+            String vodIdStr = vodIdSB.toString();
+            if (StringUtils.isNotBlank(vodIdStr)) vodIdStr = vodIdStr.substring(0,vodIdStr.length()-1);
+
+            try {
+                AliyunVodUtils.deleteVideo(null,vodIdStr);
+            } catch (Exception e) {
+                log.info("删除方法调用失败");
+                throw new ElonException(20001,"批量删除视频失败");
+            }
+        }
+        log.info("删除方法调用成功");
         return ResModel.success();
     }
 }

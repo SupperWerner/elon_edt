@@ -4,8 +4,10 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zsy.commonutils.ResModel;
+import com.zsy.edu.client.VodClient;
 import com.zsy.edu.entity.Course;
 import com.zsy.edu.entity.CourseDescription;
+import com.zsy.edu.entity.Video;
 import com.zsy.edu.entity.query.CourseQuery;
 import com.zsy.edu.entity.vo.CoursePublishVO;
 import com.zsy.edu.entity.vo.CourseVO;
@@ -14,11 +16,15 @@ import com.zsy.edu.service.ChapterService;
 import com.zsy.edu.service.CourseDescriptionService;
 import com.zsy.edu.service.CourseService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.zsy.edu.service.VideoService;
 import com.zsy.servicebase.exceptionHandler.ElonException;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * <p>
@@ -36,6 +42,10 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
     private CourseDescriptionService courseDescriptionService;
     @Autowired
     private ChapterService chapterService;
+    @Autowired
+    private VideoService videoService;
+    @Autowired
+    private VodClient vodClient;
 
 
     /**
@@ -171,9 +181,24 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
      **/
     @Override
     public boolean myDeleteCourse(String id) {
+        // 获取所有的视频id
+        QueryWrapper<Video> wrapper = new QueryWrapper<>();
+        wrapper.eq("course_id",id);
+        wrapper.select("video_source_id");
+        List<String> videoSourceIds = new ArrayList<>();
+        List<Video> videoList = videoService.list(wrapper);
+        videoList.forEach( video -> {
+            // 如果不等于null在进行添加
+            if (StringUtils.isNotBlank(video.getVideoSourceId())) videoSourceIds.add(video.getVideoSourceId());
+        });
+        // TODO 删除课程
+        ResModel resModel = vodClient.deleteByVodIdList(videoSourceIds);
+        resModel.isSuccess();
+        log.info("删除程序已执行");
         boolean flagChapter = chapterService.myRemoveByCourseId(id); // 删除课程章节与课时视频信息
         boolean flagDescription = courseDescriptionService.removeById(id); // 删除课程描述信息
         int i = baseMapper.deleteById(id); // 删除基本信息
-        return flagChapter&&flagDescription&&i>0;
+        log.info("删除基本课程基本信息返回值为:{}",i);
+        return i>0;
     }
 }

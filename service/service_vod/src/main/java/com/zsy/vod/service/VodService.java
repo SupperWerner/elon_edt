@@ -1,7 +1,9 @@
 package com.zsy.vod.service;
 
 import com.zsy.commonutils.ResModel;
-import org.springframework.web.multipart.MultipartFile; /**
+import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List; /**
  * @ClassName VodService
  * @Description TODO
  * @Author mybook
@@ -13,4 +15,6 @@ public interface VodService {
     ResModel uploadVideoAly(MultipartFile file);
 
     ResModel myRemoveVideo(String videoId);
+
+    ResModel myDeleteByVodIdList(List<String> vodIds);
 }

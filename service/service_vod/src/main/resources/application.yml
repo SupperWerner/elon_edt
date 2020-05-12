@@ -2,13 +2,17 @@ server:
   port: 8003
 spring:
   application:
-    name: service_vod
+    name: service-vod
   profiles:
     active: dev
   servlet:
     multipart:
       max-file-size: 10MB
       max-request-size: 100MB
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 192.168.43.145:8848
 # endpoint 地域节点名
 # accessKeyId id
 # accessKdySecret 秘钥

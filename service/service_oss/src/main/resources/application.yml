@@ -2,9 +2,13 @@ server:
   port: 8002
 spring:
   application:
-    name: service_oss
+    name: service-oss
   profiles:
     active: dev
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 192.168.43.145:8848
 
 # endpoint 地域节点名
 # accessKeyId id
