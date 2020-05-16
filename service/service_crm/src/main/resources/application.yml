@@ -1,8 +1,8 @@
 server:
-  port: 8001
+  port: 8004
 spring:
   application:
-    name: service-edu
+    name: "service-crm"
   profiles:
     active: dev
   datasource:
@@ -19,17 +19,7 @@ spring:
         server-addr: 192.168.43.145:8848
 #配置xml文件的位置
 mybatis-plus:
-  mapper-locations: classpath:com/zsy/edu/mapper/xml/*.xml
+  mapper-locations: classpath:com/zsy/crm/mapper/xml/*.xml
 feign:
   hystrix:
     enabled: true
-
-
-
-#mybatis日志 mybatis-plus.mapper-locations=classpath:com/guli/edu/mapper/xml/*.xml
-#mybatis-plus:
-#  configuration:
-#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
-#logging:
-#  level: debug
-

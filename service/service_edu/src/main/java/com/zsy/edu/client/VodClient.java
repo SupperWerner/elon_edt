@@ -1,7 +1,7 @@
 package com.zsy.edu.client;
 
 import com.zsy.commonutils.ResModel;
-import io.swagger.annotations.ApiOperation;
+import com.zsy.edu.client.impl.VodClientImpl;
 import io.swagger.annotations.ApiParam;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.stereotype.Component;
@@ -18,7 +18,7 @@ import java.util.List;
  * @Date 2020/5/11 5:59 PM
  * @Version 1.0
  */
-@FeignClient("service-vod")
+@FeignClient(name = "service-vod" ,fallback =  VodClientImpl.class)
 @Component
 public interface VodClient {
     @DeleteMapping("/vod/video/{videoId}")
