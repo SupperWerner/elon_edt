@@ -209,6 +209,11 @@
 				<artifactId>canal.client</artifactId>
 				<version>${canal.client.version}</version>
 			</dependency>
+			<dependency>
+				<groupId>com.wangyi</groupId>
+				<artifactId>wangyi-mail-send</artifactId>
+				<version>0.0.2</version>
+			</dependency>
 		</dependencies>
 	</dependencyManagement>
 
