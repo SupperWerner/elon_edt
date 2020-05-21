@@ -66,7 +66,7 @@ public class EmilUtils {
             e.printStackTrace();
             return "发送邮件失败, 原因:" + e.getMessage();
         }
-        return "发送邮件成功！接收人：" + to;
+        return "ok";
     }
 
 }
