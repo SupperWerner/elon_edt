@@ -9,7 +9,7 @@ import java.util.List;
 
 /**
  * @ClassName VodClientImpl
- * @Description TODO
+ * @Description Vod熔断接口实现类
  * @Author mybook
  * @Date 2020/5/15 4:52 PM
  * @Version 1.0

@@ -8,7 +8,7 @@ import org.springframework.context.annotation.ComponentScan;
 
 /**
  * @ClassName VodApplication
- * @Description TODO
+ * @Description 启动类
  * @Author mybook
  * @Date 2020/5/9 12:10 PM
  * @Version 1.0

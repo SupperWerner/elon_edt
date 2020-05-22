@@ -8,7 +8,7 @@ import org.springframework.context.annotation.ComponentScan;
 
 /**
  * @ClassName CrmApplication
- * @Description TODO
+ * @Description 启动类
  * @Author mybook
  * @Date 2020/5/16 9:02 PM
  * @Version 1.0

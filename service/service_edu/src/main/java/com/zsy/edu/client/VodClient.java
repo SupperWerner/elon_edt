@@ -13,7 +13,7 @@ import java.util.List;
 
 /**
  * @ClassName VodClient
- * @Description TODO
+ * @Description Feign调用Vod方法的接口
  * @Author mybook
  * @Date 2020/5/11 5:59 PM
  * @Version 1.0

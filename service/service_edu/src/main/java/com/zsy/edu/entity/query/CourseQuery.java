@@ -8,7 +8,7 @@ import java.io.Serializable;
 
 /**
  * @ClassName CourseQuery
- * @Description TODO
+ * @Description 也成查询条件
  * @Author mybook
  * @Date 2020/5/6 10:42 PM
  * @Version 1.0

@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 /**
  * @ClassName JwtUtils
- * @Description TODO
+ * @Description Jwt工具类
  * @Author mybook
  * @Date 2020/5/20 8:47 PM
  * @Version 1.0
@@ -17,7 +17,8 @@ import java.util.Date;
 public class JwtUtils {
     public static final long EXPIRE = 1000 * 60 * 60 * 24;
     public static final String APP_SECRET = "ukc8BDbRigUDaY6pZFfWus2jZWLPHO";
-    public static String getJwtToken(String id, String nickname){
+
+    public static String getJwtToken(String id, String email){
         String JwtToken = Jwts.builder()
                 .setHeaderParam("typ", "JWT")
                 .setHeaderParam("alg", "HS256")
@@ -25,7 +26,7 @@ public class JwtUtils {
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + EXPIRE))
                 .claim("id", id)
-                .claim("nickname", nickname)
+                .claim("nickname", email)
                 .signWith(SignatureAlgorithm.HS256, APP_SECRET)
                 .compact();
         return JwtToken;

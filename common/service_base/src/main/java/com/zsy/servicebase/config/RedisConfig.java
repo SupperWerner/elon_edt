@@ -21,7 +21,7 @@ import java.time.Duration;
 
 /**
  * @ClassName RedisConfig
- * @Description TODO
+ * @Description Redis配置类
  * @Author mybook
  * @Date 2020/5/20 12:20 AM
  * @Version 1.0

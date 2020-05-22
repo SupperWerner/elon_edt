@@ -3,3 +3,15 @@ server:
 spring:
   application:
     name: service-msm
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 192.168.43.145:8848
+  redis:
+      host: 192.168.43.145
+      port: 6379
+      database: 0
+      lettuce:
+        pool:
+          max-active: 1000
+          max-idle: 32

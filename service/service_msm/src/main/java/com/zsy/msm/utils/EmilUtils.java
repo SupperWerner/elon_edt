@@ -11,7 +11,7 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 /**
  * @ClassName EmilUtils
- * @Description TODO
+ * @Description 发送邮件工具类
  * @Author mybook
  * @Date 2020/5/20 9:54 PM
  * @Version 1.0

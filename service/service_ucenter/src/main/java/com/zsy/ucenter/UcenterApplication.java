@@ -1,22 +1,21 @@
-package com.zsy.msm;
+package com.zsy.ucenter;
 
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.context.annotation.ComponentScan;
 
 /**
- * @ClassName MSMApplication
+ * @ClassName UcenterApplication
  * @Description 启动类
  * @Author mybook
- * @Date 2020/5/20 9:46 PM
+ * @Date 2020/5/21 3:03 PM
  * @Version 1.0
  */
-
-@SpringBootApplication(exclude = {DataSourceAutoConfiguration.class})
+@SpringBootApplication
 @ComponentScan("com.zsy")
-public class MsmApplication {
+public class UcenterApplication {
     public static void main(String[] args) {
-        SpringApplication.run(MsmApplication.class,args);
+        SpringApplication.run(UcenterApplication.class);
     }
 }

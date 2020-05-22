@@ -21,7 +21,7 @@ import java.util.Map;
 
 /**
  * @ClassName ClientController
- * @Description TODO
+ * @Description 客户端获取主页信息
  * @Author mybook
  * @Date 2020/5/16 9:20 PM
  * @Version 1.0

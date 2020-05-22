@@ -29,6 +29,8 @@ spring:
 #配置xml文件的位置
 mybatis-plus:
   mapper-locations: classpath:com/zsy/crm/mapper/xml/*.xml
+
+# 远程调用
 feign:
   hystrix:
     enabled: true
