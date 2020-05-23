@@ -54,7 +54,7 @@ public class MemberServiceImpl extends ServiceImpl<MemberMapper, Member> impleme
             throw new ElonException(20001,"用户名/密码错误");
         if (member.getIsDisabled())
             throw new ElonException(20001,"用户已被禁用");
-        return JwtUtils.getJwtToken(member.getId(),member.getEmail());
+        return JwtUtils.getJwtToken(member.getId(),member.getEmail()==null?"":member.getEmail());
     }
 
     @Override
@@ -99,5 +99,19 @@ public class MemberServiceImpl extends ServiceImpl<MemberMapper, Member> impleme
 
         return flag > 0;
 
+    }
+
+    /**
+     * @Author zsy
+     * @Description 根据openid 获取Member对象
+     * @Date 12:24 PM 2020/5/23
+     * @Param [openid]
+     * @return com.zsy.ucenter.entity.Member
+     **/
+    @Override
+    public Member getByOpenid(String openid) {
+        QueryWrapper<Member> wrapper = new QueryWrapper<>();
+        wrapper.eq("openid",openid);
+        return baseMapper.selectOne(wrapper);
     }
 }
