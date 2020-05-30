@@ -17,7 +17,6 @@
         <module>service_vod</module>
         <module>service_crm</module>
         <module>service_msm</module>
-        <module>serviceucenter/service_ucenter</module>
         <module>service_ucenter</module>
     </modules>
 
